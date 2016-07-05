@@ -41,6 +41,39 @@ namespace Microsoft.Store.PartnerCenter.Samples.Configuration
         }
 
         /// <summary>
+        /// Gets the ID of the customer user to delete.
+        /// </summary>
+        public string CustomerUserIdToDelete
+        {
+            get
+            {
+                return this.ConfigurationSection["CustomerUserIdToDelete"];
+            }
+        }
+
+        /// <summary>
+        /// Gets the ID of the directory role whose details should be read.
+        /// </summary>
+        public string DefaultDirectoryRoleId
+        {
+            get
+            {
+                return this.ConfigurationSection["DefaultDirectoryRoleId"];
+            }
+        }
+
+        /// <summary>
+        /// Gets the ID of the user member whose details should be read.
+        /// </summary>
+        public string DefaultUserMemberId
+        {
+            get
+            {
+                return this.ConfigurationSection["DefaultUserMemberId"];
+            }
+        }
+
+        /// <summary>
         /// Gets the ID of the customer whose details should be read.
         /// </summary>
         public string DefaultCustomerId
@@ -52,6 +85,17 @@ namespace Microsoft.Store.PartnerCenter.Samples.Configuration
         }
 
         /// <summary>
+        /// Gets the ID of the default customer user.
+        /// </summary>
+        public string DefaultCustomerUserId
+        {
+            get
+            {
+                return this.ConfigurationSection["DefaultCustomerUserId"];
+            }
+        }
+
+        /// <summary>
         /// Gets the number of customers to return in each customer page.
         /// </summary>
         public int CustomerPageSize
@@ -59,6 +103,17 @@ namespace Microsoft.Store.PartnerCenter.Samples.Configuration
             get
             {
                 return int.Parse(this.ConfigurationSection["CustomerPageSize"]);
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of customer users to return in each customer user page.
+        /// </summary>
+        public string CustomerUserPageSize
+        {
+            get
+            {
+                return this.ConfigurationSection["CustomerUserPageSize"];
             }
         }
 

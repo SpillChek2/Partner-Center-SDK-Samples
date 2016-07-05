@@ -49,16 +49,16 @@
       <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.16.204221202\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Store.PartnerCenter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Store.PartnerCenter.1.0.0.1\lib\net45\Microsoft.Store.PartnerCenter.dll</HintPath>
+    <Reference Include="Microsoft.Store.PartnerCenter, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Store.PartnerCenter.1.1.0.1\lib\net45\Microsoft.Store.PartnerCenter.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Store.PartnerCenter.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Store.PartnerCenter.1.0.0.1\lib\net45\Microsoft.Store.PartnerCenter.Extensions.dll</HintPath>
+    <Reference Include="Microsoft.Store.PartnerCenter.Extensions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Store.PartnerCenter.1.1.0.1\lib\net45\Microsoft.Store.PartnerCenter.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Store.PartnerCenter.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Store.PartnerCenter.1.0.0.1\lib\net45\Microsoft.Store.PartnerCenter.Models.dll</HintPath>
+    <Reference Include="Microsoft.Store.PartnerCenter.Models, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Store.PartnerCenter.1.1.0.1\lib\net45\Microsoft.Store.PartnerCenter.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -76,6 +76,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auditing\QueryAuditRecords.cs" />
+    <Compile Include="Auditing\SearchAuditRecords.cs" />
     <Compile Include="Configuration\ApplicationAuthenticationSection.cs" />
     <Compile Include="Configuration\ScenarioSettingsSection.cs" />
     <Compile Include="Configuration\UserAuthenticationSection.cs" />
@@ -83,6 +85,11 @@
     <Compile Include="Configuration\Section.cs" />
     <Compile Include="Configuration\ConfigurationManager.cs" />
     <Compile Include="Context\ScenarioContext.cs" />
+    <Compile Include="CustomerDirectoryRoles\AddUserMemberToDirectoryRole.cs" />
+    <Compile Include="CustomerDirectoryRoles\GetCustomerDirectoryRoles.cs" />
+    <Compile Include="CustomerDirectoryRoles\GetCustomerDirectoryRoleUserMembers.cs" />
+    <Compile Include="CustomerDirectoryRoles\RemoveCustomerUserMemberFromDirectoryRole.cs" />
+    <Compile Include="CustomerSubscribedSkus\GetCustomerSubscribedSkus.cs" />
     <Compile Include="Customers\UpdateCustomerBillingProfile.cs" />
     <Compile Include="Customers\GetCustomerManagedServices.cs" />
     <Compile Include="Customers\FilterCustomers.cs" />
@@ -93,6 +100,15 @@
     <Compile Include="Customers\CheckDomainAvailability.cs" />
     <Compile Include="Customers\CreateCustomer.cs" />
     <Compile Include="Customers\ValidateCustomerAddress.cs" />
+    <Compile Include="CustomerUser\CreateCustomerUser.cs" />
+    <Compile Include="CustomerUser\CustomerUserAssignedLicenses.cs" />
+    <Compile Include="CustomerUser\CustomerUserAssignLicenses.cs" />
+    <Compile Include="CustomerUser\DeleteCustomerUser.cs" />
+    <Compile Include="CustomerUser\GetCustomerUserCollection.cs" />
+    <Compile Include="CustomerUser\GetCustomerUserDetails.cs" />
+    <Compile Include="CustomerUser\GetCustomerUserDirectoryRoles.cs" />
+    <Compile Include="CustomerUser\GetPagedCustomerUsers.cs" />
+    <Compile Include="CustomerUser\UpdateCustomerUser.cs" />
     <Compile Include="Helpers\ConsoleHelper.cs" />
     <Compile Include="IndirectPartners\GetSubscriptionsByMpnId.cs" />
     <Compile Include="IndirectPartners\VerifyPartnerMpnId.cs" />

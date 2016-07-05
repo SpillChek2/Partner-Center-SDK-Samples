@@ -7,15 +7,19 @@
 namespace Microsoft.Store.PartnerCenter.Samples
 {
     using Context;
+    using CustomerDirectoryRoles;
     using Customers;
+    using CustomerSubscribedSkus;
+    using CustomerUser;
     using IndirectPartners;
     using Invoice;
+    using Models.Auditing;
+    using Models.Customers;
     using Offers;
     using Orders;
     using Profile;
     using RatedUsage;
     using ServiceRequests;
-    using Store.PartnerCenter.Models.Customers;
     using Subscriptions;
 
     /// <summary>
@@ -41,11 +45,71 @@ namespace Microsoft.Store.PartnerCenter.Samples
                 Program.GetRatedUsageScenarios(context),
                 Program.GetServiceRequestsScenarios(context),
                 Program.GetInvoiceScenarios(context),
-                Program.GetProfileScenarios(context)
+                Program.GetProfileScenarios(context),
+                Program.GetCustomerUserScenarios(context),
+                Program.GetCustomerSubscribedSkus(context),
+                Program.GetCustomerDirectoryRolesScenarios(context),
+                Program.GetAuditingScenarios(context)
             };
-            
+
             // run the main scenario
             new AggregatePartnerScenario("Partner SDK samples", mainScenarios, context).Run();
+        }
+
+        /// <summary>
+        /// Gets the Customer Directory Roles scenarios.
+        /// </summary>
+        /// <param name="context">A scenario context.</param>
+        /// <returns>The Customer Directory Roles scenarios.</returns>
+        private static IPartnerScenario GetCustomerDirectoryRolesScenarios(ScenarioContext context)
+        {
+            var customerDirectoryRolesScenarios = new IPartnerScenario[]
+            {
+                new GetCustomerDirectoryRoles(context),
+                new AddUserMemberToDirectoryRole(context),
+                new GetCustomerDirectoryRoleUserMembers(context),
+                new RemoveCustomerUserMemberFromDirectoryRole(context)
+            };
+
+            return new AggregatePartnerScenario("Customer Directory Roles", customerDirectoryRolesScenarios, context);
+        }
+
+        /// <summary>
+        /// Gets the Customer Subscribed SKUs scenarios.
+        /// </summary>
+        /// <param name="context">A scenario context.</param>
+        /// <returns>The Customer Subscribed SKUs scenarios.</returns>
+        private static IPartnerScenario GetCustomerSubscribedSkus(ScenarioContext context)
+        {
+            var customerSubscribedSkusScenarios = new IPartnerScenario[]
+            {
+                new GetCustomerSubscribedSkus(context)
+            };
+
+            return new AggregatePartnerScenario("Customer Subscribed Skus", customerSubscribedSkusScenarios, context);
+        }
+
+        /// <summary>
+        /// Gets the customer user scenarios.
+        /// </summary>
+        /// <param name="context">A scenario context.</param>
+        /// <returns>The customer user scenarios.</returns>
+        private static IPartnerScenario GetCustomerUserScenarios(ScenarioContext context)
+        {
+            var customerUserScenarios = new IPartnerScenario[]
+            {
+                new GetCustomerUserCollection(context),
+                new CreateCustomerUser(context),
+                new DeleteCustomerUser(context),
+                new GetCustomerUserDetails(context),
+                new UpdateCustomerUser(context),
+                new GetPagedCustomerUsers(context),
+                new GetCustomerUserDirectoryRoles(context),
+                new CustomerUserAssignedLicenses(context),
+                new CustomerUserAssignLicenses(context) 
+            };
+
+            return new AggregatePartnerScenario("Customer User samples", customerUserScenarios, context);
         }
 
         /// <summary>
@@ -220,10 +284,26 @@ namespace Microsoft.Store.PartnerCenter.Samples
                 new UpdateBillingProfile(context),
                 new UpdateLegalBusinessProfile(context),
                 new UpdateOrganizationProfile(context),
-                new UpdateSupportProfile(context)             
+                new UpdateSupportProfile(context)
             };
 
             return new AggregatePartnerScenario("Partner profile samples", profileScenarios, context);
+        }
+
+        /// <summary>
+        /// Gets the auditing scenarios
+        /// </summary>
+        /// <param name="context">A scenario context.</param>
+        /// <returns>The auditing scenarios.</returns>
+        private static IPartnerScenario GetAuditingScenarios(IScenarioContext context)
+        {
+            var profileScenarios = new IPartnerScenario[]
+            {
+                new QueryAuditRecords(context),
+                new SearchAuditRecords("Filter by company name", AuditRecordSearchField.CompanyName, context)
+            };
+
+            return new AggregatePartnerScenario("Auditing samples", profileScenarios, context);
         }
     }
 }

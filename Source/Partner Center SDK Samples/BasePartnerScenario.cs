@@ -103,6 +103,76 @@ namespace Microsoft.Store.PartnerCenter.Samples
         }
 
         /// <summary>
+        /// Obtains a directory role ID to work with from the configuration if set there or prompts the user to enter it.
+        /// </summary>
+        /// <param name="promptMessage">An optional custom prompt message.</param>
+        /// <returns>A directory role ID.</returns>
+        protected string ObtainDirectoryRoleId(string promptMessage = default(string))
+        {
+            return this.ObtainValue(
+                this.Context.Configuration.Scenario.DefaultDirectoryRoleId,
+                "Directory Role Id",
+                string.IsNullOrWhiteSpace(promptMessage) ? "Enter the Directory Role ID" : promptMessage,
+                "The Directory Role ID can't be empty");
+        }
+
+        /// <summary>
+        /// Obtains a customer user ID to work with from the configuration if set there or prompts the user to enter it.
+        /// </summary>
+        /// <param name="promptMessage">An optional custom prompt message.</param>
+        /// <returns>A customer user ID.</returns>
+        protected string ObtainCustomerUserId(string promptMessage = default(string))
+        {
+            return this.ObtainValue(
+                this.Context.Configuration.Scenario.DefaultCustomerUserId,
+                "Customer User Id",
+                string.IsNullOrWhiteSpace(promptMessage) ? "Enter the customer user ID" : promptMessage,
+                "The customer user ID can't be empty");
+        }
+
+        /// <summary>
+        /// Obtains a user member ID to work with from the configuration if set there or prompts the user to enter it.
+        /// </summary>
+        /// <param name="promptMessage">An optional custom prompt message.</param>
+        /// <returns>A user member ID.</returns>
+        protected string ObtainUserMemberId(string promptMessage = default(string))
+        {
+            return this.ObtainValue(
+                this.Context.Configuration.Scenario.DefaultUserMemberId,
+                "User Member Id",
+                string.IsNullOrWhiteSpace(promptMessage) ? "Enter the User Member ID" : promptMessage,
+                "The User Member ID can't be empty");
+        }
+
+        /// <summary>
+        /// Obtains a customer user ID to delete from the configuration if set there or prompts the user to enter it.
+        /// </summary>
+        /// <param name="promptMessage">An optional custom prompt message.</param>
+        /// <returns>A customer user ID.</returns>
+        protected string ObtainCustomerUserIdDelete(string promptMessage = default(string))
+        {
+            return this.ObtainValue(
+                this.Context.Configuration.Scenario.CustomerUserIdToDelete,
+                "Customer User Id To Delete",
+                string.IsNullOrWhiteSpace(promptMessage) ? "Enter the customer user ID to delete" : promptMessage,
+                "The customer user ID can't be empty");
+        }
+
+        /// <summary>
+        /// Obtains a customer user page size to work with from the configuration if set there or prompts the user to enter it.
+        /// </summary>
+        /// <param name="promptMessage">An optional custom prompt message.</param>
+        /// <returns>A customer user page size.</returns>
+        protected string ObtainCustomerUserPageSize(string promptMessage = default(string))
+        {
+            return this.ObtainValue(
+                this.Context.Configuration.Scenario.CustomerUserPageSize,
+                "Customer user page size",
+                string.IsNullOrWhiteSpace(promptMessage) ? "Enter the customer user page size" : promptMessage,
+                "The customer user page size can't be empty");
+        }
+
+        /// <summary>
         /// Obtains an MPN ID to work with from the configuration if set there or prompts the user to enter it.
         /// </summary>
         /// <param name="promptMessage">An optional custom prompt message.</param>
