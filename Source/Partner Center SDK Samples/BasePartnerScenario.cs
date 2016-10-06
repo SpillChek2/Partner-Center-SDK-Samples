@@ -103,6 +103,20 @@ namespace Microsoft.Store.PartnerCenter.Samples
         }
 
         /// <summary>
+        /// Obtains an indirect reseller ID to work with from the configuration if set there or prompts the user to enter it.
+        /// </summary>
+        /// <param name="promptMessage">An optional custom prompt message.</param>
+        /// <returns>An indirect reseller ID.</returns>
+        protected string ObtainIndirectResellerId(string promptMessage = default(string))
+        {
+            return this.ObtainValue(
+                this.Context.Configuration.Scenario.DefaultIndirectResellerId,
+                "Indirect Reseller Id",
+                string.IsNullOrWhiteSpace(promptMessage) ? "Enter the indirect reseller ID" : promptMessage,
+                "The indirect reseller ID can't be empty");
+        }
+
+        /// <summary>
         /// Obtains a directory role ID to work with from the configuration if set there or prompts the user to enter it.
         /// </summary>
         /// <param name="promptMessage">An optional custom prompt message.</param>

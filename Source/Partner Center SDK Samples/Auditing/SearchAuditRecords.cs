@@ -27,7 +27,7 @@ namespace Microsoft.Store.PartnerCenter.Samples.Orders
         /// <param name="title">The scenario title.</param>
         /// <param name="auditRecordSearchField">The search field.</param>
         /// <param name="context">The scenario context.</param>
-        public SearchAuditRecords(string title, AuditRecordSearchField auditRecordSearchField,IScenarioContext context) : base(title, context)
+        public SearchAuditRecords(string title, AuditRecordSearchField auditRecordSearchField, IScenarioContext context) : base(title, context)
         {
             this.auditRecordSearchField = auditRecordSearchField;
         }

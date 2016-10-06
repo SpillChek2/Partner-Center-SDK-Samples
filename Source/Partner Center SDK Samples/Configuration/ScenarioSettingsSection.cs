@@ -85,6 +85,17 @@ namespace Microsoft.Store.PartnerCenter.Samples.Configuration
         }
 
         /// <summary>
+        /// Gets the ID of the indirect reseller id whose details should be read.
+        /// </summary>
+        public string DefaultIndirectResellerId
+        {
+            get
+            {
+                return this.ConfigurationSection["DefaultIndirectResellerId"];
+            }
+        }
+
+        /// <summary>
         /// Gets the ID of the default customer user.
         /// </summary>
         public string DefaultCustomerUserId

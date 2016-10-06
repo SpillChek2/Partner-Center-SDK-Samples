@@ -6,19 +6,23 @@
 
 namespace Microsoft.Store.PartnerCenter.Samples
 {
+    using System;
     using Context;
     using CustomerDirectoryRoles;
     using Customers;
     using CustomerSubscribedSkus;
     using CustomerUser;
-    using IndirectPartners;
+    using IndirectModel;
     using Invoice;
     using Models.Auditing;
     using Models.Customers;
+    using Models.Query;
     using Offers;
     using Orders;
     using Profile;
+    using RateCards;
     using RatedUsage;
+    using ServiceIncidents;
     using ServiceRequests;
     using Subscriptions;
 
@@ -38,7 +42,6 @@ namespace Microsoft.Store.PartnerCenter.Samples
             IPartnerScenario[] mainScenarios = new[]
             {
                 Program.GetCustomerScenarios(context),
-                Program.GetIndirectPartnerScenarios(context),
                 Program.GetOfferScenarios(context),
                 Program.GetOrderScenarios(context),
                 Program.GetSubscriptionScenarios(context),
@@ -49,7 +52,10 @@ namespace Microsoft.Store.PartnerCenter.Samples
                 Program.GetCustomerUserScenarios(context),
                 Program.GetCustomerSubscribedSkus(context),
                 Program.GetCustomerDirectoryRolesScenarios(context),
-                Program.GetAuditingScenarios(context)
+                Program.GetAuditingScenarios(context),
+                Program.GetRateCardScenarios(context),
+                Program.GetIndirectModelScenarios(context),
+                Program.GetServiceIncidentScenarios(context)
             };
 
             // run the main scenario
@@ -96,9 +102,16 @@ namespace Microsoft.Store.PartnerCenter.Samples
         /// <returns>The customer user scenarios.</returns>
         private static IPartnerScenario GetCustomerUserScenarios(ScenarioContext context)
         {
+            var sortScenarios = new IPartnerScenario[]
+            {
+                new SortCustomerUsers("Ascending order", SortDirection.Ascending, context),
+                new SortCustomerUsers("Descending order", SortDirection.Descending, context)
+            };
+
             var customerUserScenarios = new IPartnerScenario[]
             {
                 new GetCustomerUserCollection(context),
+                new AggregatePartnerScenario("Get sorted customer users", sortScenarios, context),
                 new CreateCustomerUser(context),
                 new DeleteCustomerUser(context),
                 new GetCustomerUserDetails(context),
@@ -106,7 +119,9 @@ namespace Microsoft.Store.PartnerCenter.Samples
                 new GetPagedCustomerUsers(context),
                 new GetCustomerUserDirectoryRoles(context),
                 new CustomerUserAssignedLicenses(context),
-                new CustomerUserAssignLicenses(context) 
+                new CustomerUserAssignLicenses(context),
+                new GetCustomerInactiveUsers(context),
+                new CustomerUserRestore(context)
             };
 
             return new AggregatePartnerScenario("Customer User samples", customerUserScenarios, context);
@@ -132,6 +147,8 @@ namespace Microsoft.Store.PartnerCenter.Samples
                 new GetPagedCustomers(context, context.Configuration.Scenario.CustomerPageSize),
                 new AggregatePartnerScenario("Customer filtering", customerFilteringScenarios, context),
                 new GetCustomerDetails(context),
+                new GetCustomerQualification(context), 
+                new UpdateCustomerQualification(context), 
                 new DeleteCustomerFromTipAccount(context),
                 new GetCustomerManagedServices(context),
                 new GetCustomerRelationshipRequest(context),
@@ -140,19 +157,6 @@ namespace Microsoft.Store.PartnerCenter.Samples
             };
 
             return new AggregatePartnerScenario("Customer samples", customerScenarios, context);
-        }
-
-        /// <summary>
-        /// Gets the indirect partner scenarios.
-        /// </summary>
-        /// <param name="context">A scenario context.</param>
-        /// <returns>The indirect partner scenarios.</returns>
-        private static IPartnerScenario GetIndirectPartnerScenarios(IScenarioContext context)
-        {
-            return new AggregatePartnerScenario(
-                "Indirect partner samples",
-                new IPartnerScenario[] { new VerifyPartnerMpnId(context), new GetSubscriptionsByMpnId(context) },
-                context);
         }
 
         /// <summary>
@@ -168,6 +172,8 @@ namespace Microsoft.Store.PartnerCenter.Samples
                 new GetOfferCategories(context),
                 new GetOffers(context),
                 new GetPagedOffers(context, context.Configuration.Scenario.DefaultOfferPageSize),
+                new GetCustomerOffers(context),
+                new GetCustomerOfferCategories(context)
             };
 
             return new AggregatePartnerScenario("Offer samples", offerScenarios, context);
@@ -261,7 +267,7 @@ namespace Microsoft.Store.PartnerCenter.Samples
                 new GetAccountBalance(context),
                 new GetInvoice(context),
                 new GetInvoiceLineItems(context, context.Configuration.Scenario.InvoicePageSize),
-                new GetPagedInvoices(context)
+                new GetPagedInvoices(context, context.Configuration.Scenario.InvoicePageSize)
             };
 
             return new AggregatePartnerScenario("Invoice samples", invoiceScenarios, context);
@@ -291,7 +297,7 @@ namespace Microsoft.Store.PartnerCenter.Samples
         }
 
         /// <summary>
-        /// Gets the auditing scenarios
+        /// Gets the auditing scenarios.
         /// </summary>
         /// <param name="context">A scenario context.</param>
         /// <returns>The auditing scenarios.</returns>
@@ -304,6 +310,47 @@ namespace Microsoft.Store.PartnerCenter.Samples
             };
 
             return new AggregatePartnerScenario("Auditing samples", profileScenarios, context);
+        }
+
+        /// <summary>
+        /// Gets the rate card scenarios.
+        /// </summary>
+        /// <param name="context">A scenario context.</param>
+        /// <returns>The rate card scenarios.</returns>
+        private static IPartnerScenario GetRateCardScenarios(ScenarioContext context)
+        {
+            return new AggregatePartnerScenario("Rate card samples", new[] { new GetAzureRateCard(context) }, context);
+        }
+
+        /// <summary>
+        /// Gets the indirect model scenarios.
+        /// </summary>
+        /// <param name="context">A scenario context.</param>
+        /// <returns>The invoice scenarios.</returns>
+        private static IPartnerScenario GetIndirectModelScenarios(IScenarioContext context)
+        {
+            var indirectModelScenarios = new IPartnerScenario[]
+            {
+                new GetIndirectResellers(context),
+                new CreateCustomerForIndirectReseller(context),
+                new GetIndirectResellersOfCustomer(context),
+                new PlaceOrderForCustomer(context),
+                new GetCustomersOfIndirectReseller(context),
+                new VerifyPartnerMpnId(context),
+                new GetSubscriptionsByMpnId(context)
+            };
+
+            return new AggregatePartnerScenario("Indirect model samples", indirectModelScenarios, context);
+        }
+
+        /// <summary>
+        /// Gets the service incident scenarios.
+        /// </summary>
+        /// <param name="context">A scenario context.</param>
+        /// <returns>The service incident scenarios.</returns>
+        private static IPartnerScenario GetServiceIncidentScenarios(ScenarioContext context)
+        {
+            return new AggregatePartnerScenario("Service incident samples", new[] { new GetServiceIncidents(context) }, context);
         }
     }
 }
