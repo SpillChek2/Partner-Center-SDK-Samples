@@ -25,6 +25,7 @@ namespace Microsoft.Store.PartnerCenter.Samples
     using ServiceIncidents;
     using ServiceRequests;
     using Subscriptions;
+    using Utilization;
 
     /// <summary>
     /// The main program class for the partner center .NET SDK samples.
@@ -55,7 +56,8 @@ namespace Microsoft.Store.PartnerCenter.Samples
                 Program.GetAuditingScenarios(context),
                 Program.GetRateCardScenarios(context),
                 Program.GetIndirectModelScenarios(context),
-                Program.GetServiceIncidentScenarios(context)
+                Program.GetServiceIncidentScenarios(context),
+                Program.GetUtilizationScenarios(context)
             };
 
             // run the main scenario
@@ -351,6 +353,16 @@ namespace Microsoft.Store.PartnerCenter.Samples
         private static IPartnerScenario GetServiceIncidentScenarios(ScenarioContext context)
         {
             return new AggregatePartnerScenario("Service incident samples", new[] { new GetServiceIncidents(context) }, context);
+        }
+
+        /// <summary>
+        /// Gets the Utilization scenarios.
+        /// </summary>
+        /// <param name="context">A scenario context.</param>
+        /// <returns>The Utilization scenarios.</returns>
+        private static IPartnerScenario GetUtilizationScenarios(ScenarioContext context)
+        {
+            return new AggregatePartnerScenario("Utilization samples", new[] { new GetAzureSubscriptionUtilization(context) }, context);
         }
     }
 }
