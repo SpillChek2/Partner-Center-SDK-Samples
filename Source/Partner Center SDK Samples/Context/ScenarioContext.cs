@@ -11,8 +11,8 @@ namespace Microsoft.Store.PartnerCenter.Samples.Context
     using Configuration;
     using Helpers;
     using IdentityModel.Clients.ActiveDirectory;
-    using PartnerCenter;
-    using Extensions;
+    using Store.PartnerCenter;
+    using Store.PartnerCenter.Extensions;
 
     /// <summary>
     /// Scenario context implementation class.
